@@ -1,8 +1,8 @@
 import React from 'react';
-import { connect } from './store';
+import { connect } from './react-redux';
 
 
-const App = ({ count, increase, decrease}) => (
+const App = ({ count, increase, decrease }) => (
   <div className="App">
     <h1>App count {count}</h1>
     <button onClick={increase}>+</button>
