@@ -40,8 +40,8 @@ export default store;
 
 export const connect = (
   OldComponent,
-  extraData,
-  extraCallbacks
+  mapStateToProps,
+  mapDispatchToProps
 ) => {
   return class extends React.Component {
     componentDidMount() {
@@ -54,8 +54,8 @@ export const connect = (
       return (
         <OldComponent
           {...this.props}
-          {...extraData}
-          {...extraCallbacks}
+          {...mapStateToProps(store.getState())}
+          {...mapDispatchToProps(store.dispatch)}
         />
       );
     }

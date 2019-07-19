@@ -11,15 +11,15 @@ const App = (props) => (
   </div>
 );
 
-const extraData = {
-  count: store.getState().count
-};
+const mapState = (state) => ({
+  count: state.count
+});
 
-const extraCallbacks = {
-  increase: store.dispatch({ type: 'increase'})
-};
+const mapDispatch = (dispatch) => ({
+  increase: () => dispatch({ type: 'increase'}),
+});
 
-export default connect(App, extraData, extraCallbacks);
+export default connect(App, mapState, mapDispatch);
 
 
 
