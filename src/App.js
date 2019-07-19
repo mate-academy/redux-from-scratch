@@ -1,6 +1,5 @@
 import React from 'react';
-
-const CountContext = React.createContext();
+import CountContext, { withCount } from './CountContext';
 
 class App extends React.Component{
   state = { count: 0 };
@@ -18,6 +17,8 @@ class App extends React.Component{
           <h1>App count {this.state.count}</h1>
           <button onClick={this.increase}>Add</button>
           <Child />
+          <Child2 />
+          <ChildWithCount />
         </div>
       </CountContext.Provider>
     );
@@ -31,6 +32,16 @@ const Child = () => (
     )}
   </CountContext.Consumer>
 );
+
+const Child2 = (props) => <h2>Child2 count {props.count}</h2>;
+
+const ChildWithCount = withCount(Child2);
+
+
+
+
+
+
 
 
 // class Child extends React.Component {
