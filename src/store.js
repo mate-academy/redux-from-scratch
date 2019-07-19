@@ -38,7 +38,11 @@ const store = createStore(reducer, { count: 0 });
 export default store;
 
 
-export const connect = (OldComponent) => {
+export const connect = (
+  OldComponent,
+  extraData,
+  extraCallbacks
+) => {
   return class extends React.Component {
     componentDidMount() {
       store.subscribe(() => {
@@ -46,20 +50,32 @@ export const connect = (OldComponent) => {
       });
     }
 
-    increase = () => {
-      store.dispatch({ type: 'increase' });
-    };
-
     render() {
-      const { count } = store.getState();
-
       return (
         <OldComponent
           {...this.props}
-          count={count}
-          increase={this.increase}
+          {...extraData}
+          {...extraCallbacks}
         />
       );
     }
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

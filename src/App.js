@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from './store';
 
 
-
 const App = (props) => (
   <div className="App">
     <h1>App count {props.count}</h1>
@@ -12,8 +11,35 @@ const App = (props) => (
   </div>
 );
 
+const extraData = {
+  count: store.getState().count
+};
 
-export default connect(App);
+const extraCallbacks = {
+  increase: store.dispatch({ type: 'increase'})
+};
+
+export default connect(App, extraData, extraCallbacks);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // class App2 extends React.Component{
