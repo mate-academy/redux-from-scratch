@@ -1,37 +1,44 @@
 import React from 'react';
 
-const App = () => (
-  <>
-    <BoxWithTextColor text={123} color="purple" />
-    <CircleWithTextColor text={789} color="red" />
-  </>
-);
-
-const Box = (props) => (
-  <article>
-    {props.text}
-  </article>
-);
-
-const Circle = (props) => (
-  <section>
-    {props.text}
-  </section>
-);
-
-const withTextColor = (OldComponent) => {
-  return ({ color, ...props }) => (
-    <div style={{ color: color }}>
-      <OldComponent {...props} />
-    </div>
-  );
-};
-
-const CircleWithTextColor = withTextColor(Circle);
-const BoxWithTextColor = withTextColor(Box);
+const CountContext = React.createContext();
 
 
+class App extends React.Component{
+  state = { count: 0 };
 
+  increase = () => {
+    this.setState(state => ({
+      count: state.count + 1,
+    }));
+  };
+
+  render() {
+    return (
+      <CountContext.Provider value={this.state.count}>
+        <div className="App">
+          <h1>App count {this.state.count}</h1>
+
+          <button onClick={this.increase}>
+            Add
+          </button>
+
+          <Child />
+        </div>
+      </CountContext.Provider>
+    );
+  }
+}
+
+class Child extends React.Component {
+  static contextType = CountContext;
+
+  render() {
+    return (
+      <h2>Child count {this.context}</h2>
+    );
+  }
+}
+// Child.contextType = CountContext;
 
 export default App;
 
@@ -55,31 +62,6 @@ export default App;
 //     </article>
 //   );
 // };
-
-// //
-// class CounterApp extends React.Component{
-//   state = { count: 0 };
-//
-//   increase = () => {
-//     this.setState(state => ({
-//       count: state.count + 1,
-//     }));
-//   };
-//
-//   render() {
-//     return (
-//       <div className="App">
-//         <h1>App count {this.state.count}</h1>
-//         <button onClick={this.increase}>Add</button>
-//         <Child count={this.state.count}/>
-//       </div>
-//     );
-//   }
-// }
-//
-// const Child = (props) => (
-//   <h2>Child count {props.count}</h2>
-// );
 
 // const App = () => (
 //   <div className="App">
@@ -125,6 +107,35 @@ export default App;
 //   );
 // };
 
+// const App = () => (
+//   <>
+//     <BoxWithTextColor text={123} color="purple" />
+//     <CircleWithTextColor text={789} color="red" />
+//   </>
+// );
+//
+// const Box = (props) => (
+//   <article>
+//     {props.text}
+//   </article>
+// );
+//
+// const Circle = (props) => (
+//   <section>
+//     {props.text}
+//   </section>
+// );
+//
+// const withTextColor = (OldComponent) => {
+//   return ({ color, ...props }) => (
+//     <div style={{ color: color }}>
+//       <OldComponent {...props} />
+//     </div>
+//   );
+// };
+//
+// const CircleWithTextColor = withTextColor(Circle);
+// const BoxWithTextColor = withTextColor(Box);
 
 
 
