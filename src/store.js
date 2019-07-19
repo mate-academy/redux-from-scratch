@@ -1,3 +1,4 @@
+import React from 'react';
 function createStore(reducer, initialState = {}) {
   let state = { ...initialState };
   let callbacks = [];
@@ -35,3 +36,30 @@ const reducer = (state, action) => {
 const store = createStore(reducer, { count: 0 });
 
 export default store;
+
+
+export const connect = (OldComponent) => {
+  return class extends React.Component {
+    componentDidMount() {
+      store.subscribe(() => {
+        this.forceUpdate();
+      });
+    }
+
+    increase = () => {
+      store.dispatch({ type: 'increase' });
+    };
+
+    render() {
+      const { count } = store.getState();
+
+      return (
+        <OldComponent
+          {...this.props}
+          count={count}
+          increase={this.increase}
+        />
+      );
+    }
+  }
+};

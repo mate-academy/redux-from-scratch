@@ -1,40 +1,45 @@
 import React from 'react';
-import store from './store';
-
-class App extends React.Component{
-  componentDidMount() {
-    store.subscribe(() => {
-      this.forceUpdate();
-    });
-  }
-
-  increase = () => {
-    store.dispatch({ type: 'increase' });
-  };
-
-  render() {
-    const { count } = store.getState();
-
-    return (
-      <div className="App">
-        <h1>App count {count}</h1>
-        <button onClick={this.increase}>
-          Add
-        </button>
-      </div>
-    );
-  }
-}
+import { connect } from './store';
 
 
 
+const App = (props) => (
+  <div className="App">
+    <h1>App count {props.count}</h1>
+    <button onClick={props.increase}>
+      Add
+    </button>
+  </div>
+);
 
 
+export default connect(App);
 
 
-
-
-
+// class App2 extends React.Component{
+//   componentDidMount() {
+//     store.subscribe(() => {
+//       this.forceUpdate();
+//     });
+//   }
+//
+//   increase = () => {
+//     store.dispatch({ type: 'increase' });
+//   };
+//
+//   render() {
+//     const { count } = store.getState();
+//
+//     return (
+//       <div className="App">
+//         <h1>App count {count}</h1>
+//         <button onClick={this.increase}>
+//           Add
+//         </button>
+//       </div>
+//     );
+//   }
+// }
 
 // class Child extends React.Component {
 //   static contextType = CountContext;
@@ -46,9 +51,6 @@ class App extends React.Component{
 //   }
 // }
 // Child.contextType = CountContext;
-
-export default App;
-
 
 // const App = () => (
 //   <div className="App">
