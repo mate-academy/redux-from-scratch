@@ -10,7 +10,7 @@ import { Provider } from './react-redux';
 
 
 ReactDOM.render(
-  <Provider value={store}>
+  <Provider store={store}>
     <App x={1} />
   </Provider>,
 

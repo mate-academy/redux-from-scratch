@@ -19,7 +19,7 @@ const mapDispatch = (dispatch) => ({
   decrease: () => dispatch({ type: 'decrease'}),
 });
 
-export default connect(App, mapState, mapDispatch);
+export default connect(mapState, mapDispatch)(App);
 
 
 
