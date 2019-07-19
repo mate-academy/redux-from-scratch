@@ -5,3 +5,20 @@ button {
 .my-super-link {
   background-color: green;
 }
+
+article {
+  border: 2px solid blue;
+  border-radius: 5px;
+  min-height: 50px;
+  width: 100px;
+}
+
+section {
+  border: 1px dashed black;
+}
+
+header {
+  font-weight: bold;
+  padding: 3px 5px;
+  text-align: center;
+}
