@@ -1,26 +1,27 @@
 import React from 'react';
-import CountContext from './CountContext';
-import Child from './Child';
+import store from './store';
 
 class App extends React.Component{
-  state = { count: 0 };
+  componentDidMount() {
+    store.subscribe(() => {
+      this.forceUpdate();
+    });
+  }
 
   increase = () => {
-    this.setState(state => ({
-      count: state.count + 1,
-    }));
+    store.dispatch({ type: 'increase' });
   };
 
   render() {
-    return (
-      <CountContext.Provider value={this.state.count}>
-        <div className="App">
-          <h1>App count {this.state.count}</h1>
-          <button onClick={this.increase}>Add</button>
+    const { count } = store.getState();
 
-          <Child />
-        </div>
-      </CountContext.Provider>
+    return (
+      <div className="App">
+        <h1>App count {count}</h1>
+        <button onClick={this.increase}>
+          Add
+        </button>
+      </div>
     );
   }
 }

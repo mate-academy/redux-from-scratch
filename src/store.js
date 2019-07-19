@@ -1,23 +1,37 @@
+function createStore(reducer, initialState = {}) {
+  let state = { ...initialState };
+  let callbacks = [];
 
+  return {
+    getState() {
+      return state;
+    },
 
+    dispatch(action) {
+      state = reducer(state, action);
+      callbacks.forEach(f => f());
+    },
 
+    subscribe(f) {
+      // callbacks.push(f);
+      callbacks = [...callbacks, f];
+    }
+  };
+}
 
-// function createStore(reducer, initialState = {}) {
-//   let callbacks = [];
-//   let state = { ...initialState };
-//
-//   return {
-//     getState() {
-//       return state;
-//     },
-//
-//     subscribe(callback) {
-//       callbacks.push(callback);
-//     },
-//
-//     dispatch(action) {
-//       state = reducer(state, action);
-//       callbacks.forEach(f => f());
-//     }
-//   };
-// }
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'increase':
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+
+    default:
+      return state;
+  }
+};
+
+const store = createStore(reducer, { count: 0 });
+
+export default store;
