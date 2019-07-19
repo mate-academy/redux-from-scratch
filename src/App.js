@@ -2,24 +2,35 @@ import React from 'react';
 
 const App = () => (
   <>
-    <Box text={123} bgColor="red" />
-    <Circle text={456} bgColor="red" />
-    <Circle text={789} bgColor="yellow" />
+    <BoxWithTextColor text={123} color="purple" />
+    <CircleWithTextColor text={789} color="red" />
   </>
 );
 
 const Box = (props) => (
-  <article style={{ backgroundColor: props.bgColor }}>
+  <article>
     {props.text}
   </article>
 );
 
-
 const Circle = (props) => (
-  <section style={{ backgroundColor: props.bgColor }}>
+  <section>
     {props.text}
   </section>
 );
+
+const withTextColor = (OldComponent) => {
+  return ({ color, ...props }) => (
+    <div style={{ color: color }}>
+      <OldComponent {...props} />
+    </div>
+  );
+};
+
+const CircleWithTextColor = withTextColor(Circle);
+const BoxWithTextColor = withTextColor(Box);
+
+
 
 
 export default App;
