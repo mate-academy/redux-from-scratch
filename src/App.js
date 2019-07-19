@@ -2,21 +2,21 @@ import React from 'react';
 import { connect } from './store';
 
 
-const App = (props) => (
+const App = ({ count, increase, decrease}) => (
   <div className="App">
-    <h1>App count {props.count}</h1>
-    <button onClick={props.increase}>
-      Add
-    </button>
+    <h1>App count {count}</h1>
+    <button onClick={increase}>+</button>
+    <button onClick={decrease}>-</button>
   </div>
 );
 
 const mapState = (state) => ({
-  count: state.count
+  count: state.count,
 });
 
 const mapDispatch = (dispatch) => ({
   increase: () => dispatch({ type: 'increase'}),
+  decrease: () => dispatch({ type: 'decrease'}),
 });
 
 export default connect(App, mapState, mapDispatch);
